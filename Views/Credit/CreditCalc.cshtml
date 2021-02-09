@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+@model PartyInvites.Models.CreditModel
+@{ Layout = null; }
+
+<!--TODO: Validation and onClick Output script to be married; Outputs table as currently displayed will always revert back to display:none upon the controller re-rendering the view-->
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>Credit Calculator</title>
+
+    <link rel="stylesheet" href="/css/creditcal.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <!--<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" /> -->
+
+    <link rel="icon" href="/Content/Assets/head-logo.jpeg" type="image/png">
+</head>
+
+
+<body>
+
+    <div class="navigation">
+        <div class="main-logo">
+            <a href="home.html"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
+        </div>
+    </div>
+
+    <!--<br>-->
+    <!--<br>-->
+
+    <label for="section-title" class="section-title">Кредитен калкулатор</label>
+    <!--<br>-->
+    <label for="section-mini-title" class="section-mini-title">Пресметнете месечни вноски и ГПР (годишен процент на разходите)</label>
+
+    <!--<br>-->
+    <!--<br>-->
+    <!--
+
+    <!--Credit Calculator Fields-->
+    <div class="main-container">
+        <!--below <form> only concernes View <-> Controller relationship-->
+        <form asp-action="CreditCalc" method="post" class="m-2">
+            <div class="float-container">
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="CreditAmount">Loan Amount:</label>-->
+                        <!--To check below for html ID & NAME inconsistencies with styling and controller refs.-->
+                        <input type="number" asp-for="CreditAmount" asp-controller="Credit" asp-action="CreditCalc" name="CreditAmount" placeholder="Размер на кредита" required id="size" min="0" max="999999999"><br><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <!--label asp-for="CreditTermMonths">Initial Payment:</label>-->
+                        <input type="number" asp-for="CreditTermMonths" asp-controller="Credit" asp-action="CreditCalc" name="CreditTermMonths" placeholder="Срок (месеци)*" required id="size" min="0" max="12" /><!--<br>-->
+                        <!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="InterestRatePercentage">Lease period:</label>-->
+                        <input type="number" asp-for="InterestRatePercentage" asp-controller="Credit" asp-action="CreditCalc" name="InterestRatePercentage" placeholder="Лихва (%)*" required id="size" min="0" max="100" /><!--<br>-->
+                        <!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <!-- <label asp-for="AnualOrDecreasingInstallments">Annual Or Decreasing Installments:</label>-->
+                    <select asp-for="AnualOrDecreasingInstallments" name="AnualOrDecreasingInstallments" asp-controller="Credit" asp-action="CreditCalc" required class="selector">
+                        <option value=""></option>
+                        <option value="true">Анюитетни вноски</option>
+                        <option value="false">Намаляващи вноски</option>
+                    </select>
+                </div>
+            </div>
+            <!--Credit Calculator Fields End-->
+
+            <label for="section-title" class="section-title">Промоционален период (месеци)</label>
+
+
+            <!--Promotional Period Fields-->
+            <div class="float-container">
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="PromotionalPeriodMonths">Promotional Period (months)</label>-->
+                        <input type="number" asp-for="PromotionalPeriodMonths" asp-controller="Credit" asp-action="CreditCalc" name="PromotionalPeriodMonths" required id="size" min="0" max="12" placeholder="Промоционален период" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="PromotionalInterestPercentage">Promotional Interest %</label>-->
+                        <input type="number" asp-for="PromotionalInterestPercentage" asp-controller="Credit" asp-action="CreditCalc" name="PromotionalInterestPercentage" required id="size" min="0" max="100" placeholder="Промоционална лихва" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="dropdown-child">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="GratisPeriodMonths">Promotional Interest %</label>-->
+                        <input type="number" asp-for="GratisPeriodMonths" asp-controller="Credit" asp-action="CreditCalc" name="GratisPeriodMonths" placeholder="Gratis Period (months)" min="0" max="12" required />
+                    </div>
+                </div>
+            </div>
+            <!--Promotional Period Fields End-->
+            <!--Taxes Fields-->
+            <label for="section-title" class="section-title">Такси</label>
+            <!--<br>-->
+            <!--Initial Taxes Fields-->
+            <label for="section-mini-title" class="section-mini-title">Първоначални такси</label>
+
+            <div class="float-container">
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="ApplicationFee">ApplicationFee</label>-->
+                        <input type="number" asp-for="ApplicationFee" asp-controller="Credit" asp-action="CreditCalc" name="ApplicationFee" required id="size" min="100" max="100000000" placeholder="Такса кандидастване"><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <!--Initial Taxes Fields<label asp-for="ApplicationFeeFlatOrPercentage"></label>-->
+                    <select asp-for="ApplicationFeeFlatOrPercentage" name="ApplicationFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required class="selector">
+                        <option value=""></option>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="FilingFee">Promotional Interest %</label>-->
+                        <input type="number" asp-for="FilingFee" asp-controller="Credit" asp-action="CreditCalc" name="FilingFee" placeholder="Promotional Interest %" required id="size" min="100" max="100000000" placeholder="Такса обработка" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <!--<label asp-for="FilingFeeFlatOrPercentage"></label>-->
+                    <select asp-for="FilingFeeFlatOrPercentage" name="FilingFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required class="selector">
+                        <option value=""></option>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="OtherFee">Promotional Interest %</label>-->
+                        <input type="number" asp-for="OtherFee" asp-controller="Credit" asp-action="CreditCalc" name="OtherFee" required id="size" min="100" max="100000000" placeholder="Други такси" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <!--<label asp-for="OtherFeeFlatOrPercentage"></label>-->
+                    <select asp-for="OtherFeeFlatOrPercentage" name="OtherFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required class="selector">
+                        <option value=""></option>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!--Initial Taxes Fields End-->
+            <!--Yearly taxes fields-->
+            <label for="section-mini-title" class="section-mini-title">Годишни такси</label>
+            <div class="float-container">
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="GratisPeriodMonths">AnnualAdminFee</label>-->
+                        <input type="number" asp-for="AnnualAdminFee" asp-controller="Credit" asp-action="CreditCalc" name="AnnualAdminFee" required id="size" min="100" max="100000000" placeholder="Годишна такса управление" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <select class="selector" name="choices" asp-for="AnnualAdminFeeFlatOrPercentage" name="AnnualAdminFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required class="selector">
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <!--<label asp-for="GratisPeriodMonths">Promotional Interest %</label>-->
+                        <input type="number" asp-for="OtherAnnualFee" asp-controller="Credit" asp-action="CreditCalc" name="OtherAnnualFee" required id="size" min="100" max="100000000" placeholder="Други годишни такси" /><!--<br>-->
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <select class="selector" name="choices" asp-for="OtherAnnualFeeFlatOrPercentage" name="OtherAnnualFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+            </div>
+
+
+            </br>
+            <!--Years Taxes Fields End-->
+            <!--Monthly Taxes Fields-->
+            <label for="section-mini-title" class="section-mini-title">Месечни такси</label>
+            <div class="float-container">
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input asp-for="MonthlyAdminFee" asp-controller="Credit" asp-action="CreditCalc" name="MonthlyAdminFee" type="number" id="size" min="100" max="100000000" placeholder="Месечна такса управление"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <select class="selector" asp-for="MonthlyAdminFeeFlatOrPercentage" name="MonthlyAdminFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input asp-for="OtherMonthlyFee" asp-controller="Credit" asp-action="CreditCalc" name="OtherMonthlyFee" type="number" id="size" min="100" max="100000000" placeholder="Други месечни такси"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <select class="selector" asp-for="OtherMonthlyFeeFlatOrPercentage" name="OtherMonthlyFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc" required>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+            </div>
+
+            <button formmethod="post" type="submit" class="btn btn-primary" id="credit" value="credit" name="calculate">Calculate Credit</button>
+            <!--redundant-->
+            <div onclick="myFunction()" class="button-container">
+                <button class="calculate-button" type="submit" id="lease" value="lease" name="calculate">Изчисли</button>
+            </div>
+
+        </form>
+    </div>
+
+        <div onclick="myFunction()" class="button-container">
+            <button class="calculate-button" type="submit" id="lease" value="lease" name="calculate">Изчисли</button>
+        </div>
+
+        <div id="result-table" class="result-table" <!--style="display: none-->>
+
+            <label for="section-mini-title" class="section-mini-title">Сумарни разходи</label>
+
+            @{ if (ViewBag.NegNumError != null)
+                {
+    <div class="text-center">
+        <h2>
+            @ViewBag.NegNumError
+        </h2>
+    </div> }
+
+    else if (ViewBag.ErrorMessageEmpty != null)
+    {
+    <div class="text-center">
+        <h3>
+            @ViewBag.ErrorMessageEmpty
+        </h3>>
+    </div> }
+
+    else if (ViewBag.ErrorFormat != null)
+    {
+    <div class="text-center">
+        <h3>
+            @ViewBag.ErrorFormat
+        </h3>
+    </div> }
+
+    else if (ViewBag.totalPaid != null && ViewBag.Tax != null)
+    {
+    <div class="text-center">
+        <h3>
+            Total Paid: @ViewBag.monthlyTax
+            Tax: @ViewBag.monthlyTax
+        </h3>
+    </div> } }
+
+
+
+            <table>
+                <tr>
+                    <td>ГОДИШЕН ПРОЦЕНТЕН РАЗХОД:</td>
+                    <td>@ViewBag.monthlyTax BGN</td>
+                </tr>
+                <tr>
+                    <td>ПОГАСЕНИ С ЛИХВИ И ТАКСИ:</td>
+                    <td>@ViewBag.yearlyTax BGN</td>
+                </tr>
+                <tr>
+                    <td>ТАКСИ И КОМИСИОННИ:</td>
+                    <td>0.0 BGN</td>
+                </tr>
+                <tr>
+                    <td>ЛИХВИ:</td>
+                    <td>0.0 BGN</td>
+                </tr>
+                <tr>
+                    <td>ВНОСКИ:</td>
+                    <td>0.0 BGN</td>
+                </tr>
+            </table>
+        </div>
+
+        <script>
+            function myFunction() {
+
+                console.log("Lead me to the BE , calculate result & come back.")
+
+                var tb = document.getElementById("result-table");
+
+                if (tb.style.display == "none") {
+                    tb.style.display = "grid";
+                }
+            }
+        </script>
+
+        <div class="section-footer-description">
+            <label>
+                * Задължителни полетa </br> </br>
+                Целта на ГПР Калкулатора за кредити е да Ви помогне да изчислите истинската цена на дадена кредитна оферта, която се определя от следните показатели:</br></br>
+                - За равнопоставено сравнение на различните оферти се приема, че променливия лихвен процент остава непроменен до края на кредита. Също така се приема, че кредита се обслужва редовно до края на периода.</br>
+                - Ако предвиждате, че ще погасите кредита предсрочно – тогава е необходимо да се вземе предвид такса ПРЕДСРОЧНО погасяване.
+                @ViewBag.monthlyTax
+            </label>
+        </div>
+
+        <div class="footer">
+
+            <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+                <img src="/Content/Assets/second-logo.png">
+                <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+            </div>
+
+            <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+                <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+            </div>
+
+            <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+                <p classs="main-text">© 2020 Нов Български Университет</p>
+            </div>
+        </div>
+
+
+
+
+
+        <!---
+        <button type="submit" class="btn btn-primary" id="lease" value="lease" name="calculate">Calculate Leasing</button>
+
+                    </div>
+
+        @{ if (ViewBag.NegNumError != null)
+            {
+        <div class="text-center">
+            <h2>
+                @ViewBag.NegNumError
+            </h2>
+        </div> } }
+
+                    else if (ViewBag.ErrorMessageEmpty != null)
+                    {
+        <div class="text-center">
+            <h3>
+                @ViewBag.ErrorMessageEmpty
+            </h3>>
+        </div> }
+
+                    else if (ViewBag.ErrorFormat != null)
+                    {
+        <div class="text-center">
+            <h3>
+                @ViewBag.ErrorFormat
+            </h3>
+        </div> }
+
+                    else if (ViewBag.totalPaid != null && ViewBag.Tax != null)
+                    {
+        <div class="text-center">
+            <h3>
+
+                Total Paid: @ViewBag.totalPaid
+                Tax: @ViewBag.Tax
+
+
+
+
+
+                <!--Square root of @ViewBag.first is @ViewBag.firstSqrt and of @ViewBag.second is @ViewBag.secondSqrt
+                <br>
+                <br>
+                @ViewBag.firstSqrt
+                @ViewBag.secondSqrt
+                <br>
+                @ViewBag.first;
+                @ViewBag.second;
+
+            </h3>
+        </div>-->
+
+
+
+
+</body>
+
+</html>

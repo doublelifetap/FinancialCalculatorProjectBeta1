@@ -1,0 +1,55 @@
+﻿@model PartyInvites.Models.RefinanceModel
+@{ Layout = null; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RsvpForm</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <center>
+        <div class="wrapper">
+            <h5 class="bg-primary text-white text-center m-2 p-2">Refinancing Calculator</h5>
+            <form asp-action="RefinanceCalc" method="post" class="m-2">
+
+                <div class="form-group">
+                    <label asp-for="Value1">First Value:</label>
+                    <input asp-for="Value1" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Value2">Second Value:</label>
+                    <input asp-for="Value2" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Value3">Third Value:</label>
+                    <input asp-for="Value3" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RefinanceResult">Refinance Result:</label>
+                    <output asp-for="RefinanceResult" class="form-control" id="RefinanceRefult">@ViewBag.RefinanceResultOne</output>
+                    <!--
+                    <input asp-for="RefinanceResult" class="form-control" id="RefinanceResult" value="RefinanceResultOne" /> -->
+                    <!-- <output asp-for="RefinanceResult" class="form-control" id="RefinanceResult" value="RefinanceResult" />
+                    <output asp-for="RefinanceResult" class="form-control"></output> -->
+                </div>
+                       <!-- <div class="form-group">
+                     <label>Addition or Substraction?</label>
+                     <select asp-for="AddOrSubstract" class="form-control">
+                        <option value="">Choose an option</option>
+                        <option value="true">Add all values</option>
+                        <option value="false">Substract from first value</option>
+                     </select>
+            </div> -->
+                <button type="submit" class="btn btn-primary" id="refinance" value="refinance" name="calculate">Calculate Refinancing</button>
+                <button type="submit" class="btn btn-primary" id="refinance" value="refinanceSub" name="calculate">Calculate Refinancing Substracted</button>
+                <output asp-for="RefinanceResult" class="form-control" id="RefinanceRefult">@ViewBag.RefinanceResultOne</output>
+                <h2>@ViewBag.RefinanceResultOne</h2>
+            </form>
+        </div>
+        </center>
+</body>
+    </html>
