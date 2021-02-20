@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/home.css">
+
+    <link rel="icon" href="/Content/Assets/head-logo.jpeg" type="image/png">
+</head>
+
+<body>
+    <div class="navigation">
+        <div class="main-logo">
+            <a href="home.html"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="text">
+            <h2>Ние ви помагаме да <span style="color: var(--primary);">изградите</span><br>вашите мечти.</h2>
+            <br>
+            <h3>Мисията ни е да помагаме на хората да взимат информирани финансови решения.</h3>
+        </div>
+
+        <div class="main-image">
+            <img src="/Content/Assets/main-image.png">
+        </div>
+    </div>
+
+    <div class="centered-text">
+        <p>КАЛКУЛАТОРИ</p>
+    </div>
+
+    <div class="slideshow-container">
+
+        <div class="slide fade">
+            <a asp-controller="Credit" asp-action="CreditCalc">
+                <img src="/Content/Assets/credit.png">
+            </a>
+        </div>
+
+        <div class="slide fade">
+            <a asp-controller="Refinancing" asp-action="RefinanceCalc">
+                <img src="/Content/Assets/refinancing.png">
+            </a>
+        </div>
+
+        <div class="slide fade">
+            <a asp-controller="Leasing" asp-action="LeaseCalc">
+                <img src="/Content/Assets/leasing.png">
+            </a>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <br>
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+    <div>
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+
+            // Improve ugly logic
+            // Move JS logic in separate file
+
+            var i;
+            var slides = document.getElementsByClassName("slide");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            slides[slideIndex - 1].style.display = "flex";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        function executeNextSlide() {
+
+            plusSlides(1);
+            setTimeout(executeNextSlide, 5000);
+        }
+
+        setTimeout(executeNextSlide, 5000);</script>
+
+    </div>
+</body>
+
+<div class="footer">
+
+    <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+        <img src="/Content/Assets/second-logo.png">
+        <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+    </div>
+
+    <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+        <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+    </div>
+
+    <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+        <p classs="main-text">© 2020 Нов Български Университет</p>
+    </div>
+</div>
+<!--
+<body>
+    <div class="text-center">
+        <h3> We're going to calculate stuff!</h3>
+        <h4>And we have three different calculators:</h4>
+        <a class="btn btn-primary" asp-action="RsvpForm">Credit Payments Calculator</a>
+        <a class="btn btn-primary" asp-action="RefinanceCalc">Refinancing Calculator</a>
+        <a class="btn btn-primary" asp-controller="Leasing" asp-action="Index">Leasing Calculator</a>
+    </div>
+</body>
+
+-->
+</html>

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+@model PartyInvites.Models.LeasingModel
+<!--@{ Layout = null; }-->
+<!--TODO: InitialFilingFee flat or percent???; Outputs not done; HTML validation;-->
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>Leasing Calculator</title>
+
+    <link rel="stylesheet" href="/css/creditcal.css"><!--leasingcal.css?-->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <!--<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" /> -->
+
+    <link rel="icon" href="/Content/Assets/head-logo.jpeg" type="image/png">
+</head>
+
+
+<body>
+
+    <div class="navigation">
+        <div class="main-logo">
+            <a href="home.html"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
+        </div>
+    </div>
+
+    <!--<br>-->
+    <!--<br>-->
+
+    <label for="section-title" class="section-title">Лизингов калкулатор</label>
+    <!--<br>-->
+    <label for="section-mini-title" class="section-mini-title">Пресметнете месечни вноски и ГПР (годишен процент на разходите) по лизинг/автокредит</label>
+
+    <!--<br>-->
+    <!--<br>-->
+    <!--Leasing Calculator Fields-->
+    <div class="main-container">
+        <!--below <form> only concernes View <-> Controller relationship-->
+        <form asp-controller="Leasing" asp-action="LeaseCalc" method="post" class="m-2">
+            <div class="float-container">
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="LeaseAmount" asp-controller="Leasing" asp-action="LeaseCalc" name="LeaseAmount" placeholder="Цена на стоката с ДДС*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InitialPayment" asp-controller="Leasing" asp-action="LeaseCalc" name="InitialPayment" placeholder="Първоначална вноска*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="LeasePeriodMonths" asp-controller="Leasing" asp-action="LeaseCalc" name="LeasePeriodMonths" placeholder="Период на лизинга (месеци)*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="MonthlyPayments" asp-controller="Leasing" asp-action="LeaseCalc" name="MonthlyPayments" placeholder="Месечна вноска*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InitialFilingFee" asp-controller="Leasing" asp-action="LeaseCalc" name="InitialFilingFee" placeholder="Първоначална такса обработка" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <!--<label asp-for="OtherFeeFlatOrPercentage"></label>-->
+                    <select asp-for="FlatOrPercent" name="FlatOrPercent" asp-controller="Leasing" asp-action="LeaseCalc" required class="selector">
+                        <option value=""></option>
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <!--???<div class="dropdown-child">
+    <div class="input-wrapper">
+        <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
+    </div>
+    </div>-->
+            </div>
+            <!--Leasing Calculator Fields End-->
+
+            <button asp-controller="Leasing" asp-action="LeaseCalc" formmethod="post" type="submit" class="btn btn-primary" id="lease" value="lease" name="lease">Calculate Lease</button>
+            <!--redundant-->
+            <div onclick="myFunction()" class="button-container" formmethod="post" type="submit" id="lease" value="lease" name="calculate">
+                <button class="calculate-button">Изчисли</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div onclick="myFunction()" class="button-container">
+        <button class="calculate-button">Изчисли</button>
+    </div>
+
+    <!--temp. redundant
+    <div id="result-table" class="result-table" style="display: none;">
+
+        <label for="section-mini-title" class="section-mini-title">Сумарни разходи</label>
+        </br>
+
+        <table>
+            <tr>
+                <td>ГОДИШЕН ПРОЦЕНТЕН РАЗХОД:</td>
+                <td>@ViewBag.totalYearlySpendingPercent BGN</td>
+            </tr>
+            <tr>
+                <td>ОБЩО ИЗПЛАТЕНО С ТАКСИ:</td>
+                <td>@ViewBag.totalPaidWithTaxes BGN</td>
+            </tr>
+            <tr>
+                <td>ОБЩО ТАКСИ:</td>
+                <td>@ViewBag.totalTaxes BGN</td>
+            </tr>
+        </table>
+
+    </div>
+    -->
+
+    <table>
+        <tr>
+            <td>ГОДИШЕН ПРОЦЕНТЕН РАЗХОД:</td>
+            <td>@ViewBag.totalYearlySpendingPercent</td>
+        </tr>
+        <tr>
+            <td>ОБЩО ИЗПЛАТЕНО С ТАКСИ:</td>
+            <td>@ViewBag.totalPaidWithTaxes</td>
+        </tr>
+        <tr>
+            <td>ОБЩО ТАКСИ:</td>
+            <td>@ViewBag.totalTaxes</td>
+        </tr>
+    </table>
+
+    <div class="section-footer-description">
+        <label>
+            * Задължителни полетa </br> </br>
+            Лизинговият калкулатор ви дава възможността лесно да прецените колко ще бъде реалното оскъпяване по закупената чрез лизинг стока. Чрез него лесно ще видите дали рекламираното оскъпяване отговоря на това, което реално ще изплатите. Важни съвети при покупка на лизингови вноски:</br></br>
+            - Винаги изисквайте информация дали посочената от лизингодателя месечна вноска включва всички евентуални месечни такси по обслужване на задължението ви.</br>
+            - Разберете дали вашият лизингодател начислява първоначална такса за обработка и ако е така - дали тя се начислява върху сумата на задължението ви (в случай че внесете първоначална вноска) или върху пълната цена на стоката. В случай че тя не е включена в изчислението на месечните ви такси, ще трябва да я предвидите като първоначален разход при покупка на избраната стока на лизинг.</br>
+        </label>
+    </div>
+
+    <script>
+        function myFunction() {
+
+            console.log("Lead me to the BE , calculate result & come back.")
+        }
+    </script>
+
+
+    <div class="footer">
+
+        <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+            <img src="/Content/Assets/second-logo.png">
+            <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+        </div>
+
+        <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+            <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+        </div>
+
+        <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+            <p classs="main-text">© 2020 Нов Български Университет</p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
