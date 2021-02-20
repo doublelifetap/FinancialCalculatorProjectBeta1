@@ -106,7 +106,12 @@
     <div onclick="myFunction()" class="button-container">
         <button class="calculate-button">Изчисли</button>
     </div>
-    <div onclick="myFunction()" class="button-container">
+
+    <div id="result-table" class="result-table" style="display: none;">
+
+        <label for="section-mini-title" class="section-mini-title">Сумарни разходи</label>
+        </br>
+
         <table>
             <tr>
                 <td>Резултат</td>
@@ -144,8 +149,9 @@
                 <td>@ViewBag.totalPaidNew</td>
                 <td>@ViewBag.savingsOnTotal</td>
             </tr>
-            </table>
+        </table>
         </div>
+    </div>
     <br>
 
     <!--Margin to be removed-->
@@ -161,7 +167,14 @@
     <script>
 
         function myFunction() {
+
             console.log("Lead me to the BE , calculate result & come back.")
+
+            var tb = document.getElementById("result-table");
+
+            if (tb.style.display == "none") {
+                tb.style.display = "grid";
+            }
         }
 
     </script>
