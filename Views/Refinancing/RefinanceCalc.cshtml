@@ -92,22 +92,28 @@
                         <input type="number" asp-for="NewCreditInitialTaxesFlat" asp-controller="Refinancing" asp-action="RefinanceCalc" name="NewCreditInitialTaxesFlat" placeholder="Първоначални такси(валута)*" required id="size" min="100" max="100000000"><br>
                     </div>
                 </div>
-
-
-                <button onclick="myFunction()" asp-controller="Refinancing" asp-action="RefinanceCalc" formmethod="post" type="submit" class="calculate-button" id="Refinancing" value="Refinancing" name="Refinancing">Calculate Lease</button>
+                <!--onclick="myFunction()"-->
+                <div class="button-container" formmethod="post" type="submit" id="lease" value="lease" name="calculate">
+                    <button asp-controller="Refinancing" asp-action="RefinanceCalc" formmethod="post" type="submit" class="calculate-button" id="Refinancing" value="Refinancing" name="Refinancing">Calculate Le22ase</button>
+                </div>
                 <!--redundant-->
                 <div onclick="myFunction()" class="button-container" formmethod="post" type="submit" id="lease" value="lease" name="calculate">
                     <button class="calculate-button">Изчисли</button>
+                </div>
+
+                <div onclick="myFunction()" class="button-container">
+                    <button asp-controller="Refinancing" asp-action="RefinanceCalc" formmethod="post" type="submit" class="calculate-button" id="Refinancing" value="Refinancing" name="Refinancing" class="calculate-button" onclick="myFunction()">Изчисли</button>
                 </div>
 
         </form>
     </div>
 
     <div onclick="myFunction()" class="button-container">
-        <button class="calculate-button">Изчисли</button>
+        <button asp-controller="Refinancing" asp-action="RefinanceCalc" formmethod="post" type="submit" class="calculate-button" id="Refinancing" value="Refinancing" name="Refinancing" class="calculate-button" onclick="myFunction()">Изчисли</button>
     </div>
 
-    <div id="result-table" class="result-table" style="display: none;">
+    <!--style="display: none-->
+    <div id="result-table" class="result-table">
 
         <label for="section-mini-title" class="section-mini-title">Сумарни разходи</label>
         </br>
@@ -150,7 +156,7 @@
                 <td>@ViewBag.savingsOnTotal</td>
             </tr>
         </table>
-        </div>
+    </div>
     </div>
     <br>
 
@@ -163,22 +169,6 @@
             Kaлĸyлaтopът изчиcлявa двe cтoйнocти, пo ĸoитo мoжeтe дa ce opиeнтиpaтe дaли peфинaнcиpaнeтo e изгoднo зa Bac – paзлиĸa мeждy мeceчнитe внocĸи пo двaтa ĸpeдитa и мeждy oбщo изплaтeнитe cyми.
         </label>
     </div>
-
-    <script>
-
-        function myFunction() {
-
-            console.log("Lead me to the BE , calculate result & come back.")
-
-            var tb = document.getElementById("result-table");
-
-            if (tb.style.display == "none") {
-                tb.style.display = "grid";
-            }
-        }
-
-    </script>
-
 
     <div class="footer">
 
@@ -196,7 +186,22 @@
         </div>
     </div>
 
+    <!--
+    <script>
 
+        function myFunction() {
+
+            console.log("Lead me to the BE , calculate result & come back.")
+
+            var tb = document.getElementById("result-table");
+
+            if (tb.style.display == "none") {
+                tb.style.display = "grid";
+            }
+        }
+
+    </script>
+        -->
 </body>
 
 </html>

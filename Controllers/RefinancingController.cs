@@ -114,7 +114,7 @@ namespace PartyInvites.Controllers
                     ViewBag.savingsOnTotal = totalPaymentsMade - newTotalPaymentsMade;
 
 
-                    return View();
+                    /*return View();*/
              
                     /* calculates if InitialFee has been selected as a flat value 
                     else
