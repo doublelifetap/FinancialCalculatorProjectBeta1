@@ -42,7 +42,57 @@ namespace PartyInvites.Models
         public bool? MonthlyAdminFeeFlatOrPercentage { get; set; }
         public double OtherMonthlyFee { get; set; }
         public bool? OtherMonthlyFeeFlatOrPercentage { get; set; }
+
+        // Добавете default стойности за всички (optional) полета,
+        // За да може да не са null и да не се влиза в exception при изчисления
+
+        public CreditModel(double creditAmount,
+                           double creditTermMonths,
+                           double interestRatePercentage,
+                           bool? anualOrDecreasingInstallments,
+                           double promotionalPeriodMonths,
+                           double promotionalInterestPercentage,
+                           double gratisPeriodMonths,
+                           double applicationFee,
+                           bool? applicationFeeFlatOrPercentage,
+                           double filingFee,
+                           bool? filingFeeFlatOrPercentage,
+                           double otherFee,
+                           bool? otherFeeFlatOrPercentage,
+                           double annualAdminFee,
+                           bool? annualAdminFeeFlatOrPercentage,
+                           double otherAnnualFee,
+                           bool? otherAnnualFeeFlatOrPercentage,
+                           double monthlyAdminFee,
+                           bool? monthlyAdminFeeFlatOrPercentage,
+                           double otherMonthlyFee,
+                           bool? otherMonthlyFeeFlatOrPercentage)
+        {
+            CreditAmount = creditAmount;
+            CreditTermMonths = creditTermMonths;
+            InterestRatePercentage = interestRatePercentage;
+            AnualOrDecreasingInstallments = anualOrDecreasingInstallments;
+            PromotionalPeriodMonths = promotionalPeriodMonths;
+            PromotionalInterestPercentage = promotionalInterestPercentage;
+            GratisPeriodMonths = gratisPeriodMonths;
+            ApplicationFee = applicationFee;
+            ApplicationFeeFlatOrPercentage = applicationFeeFlatOrPercentage;
+            FilingFee = filingFee;
+            FilingFeeFlatOrPercentage = filingFeeFlatOrPercentage;
+            OtherFee = otherFee;
+            OtherFeeFlatOrPercentage = otherFeeFlatOrPercentage;
+            AnnualAdminFee = annualAdminFee;
+            AnnualAdminFeeFlatOrPercentage = annualAdminFeeFlatOrPercentage;
+            OtherAnnualFee = otherAnnualFee;
+            OtherAnnualFeeFlatOrPercentage = otherAnnualFeeFlatOrPercentage;
+            MonthlyAdminFee = monthlyAdminFee;
+            MonthlyAdminFeeFlatOrPercentage = monthlyAdminFeeFlatOrPercentage;
+            OtherMonthlyFee = otherMonthlyFee;
+            OtherMonthlyFeeFlatOrPercentage = otherMonthlyFeeFlatOrPercentage;
+        }
         /* Monthly Taxes Values End*/
+
+
 
     }
 }

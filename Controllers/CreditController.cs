@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using PartyInvites.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using PartyInvites.Models;
 
 namespace PartyInvites.Controllers
 {
@@ -30,15 +27,14 @@ namespace PartyInvites.Controllers
                 if (int.Parse(CreditAmount) < 0 || int.Parse(CreditTermMonths) < 0 || int.Parse(InterestRatePercentage) < 0 || int.Parse(PromotionalPeriodMonths) < 0 || int.Parse(PromotionalInterestPercentage) < 0
                     || int.Parse(GratisPeriodMonths) < 0 || int.Parse(ApplicationFee) < 0 || int.Parse(FilingFee) < 0 || int.Parse(OtherFee) < 0 || int.Parse(AnnualAdminFee) < 0 || int.Parse(OtherAnnualFee) < 0
                     || int.Parse(MonthlyAdminFee) < 0 || int.Parse(OtherMonthlyFee) < 0)
-
-                { 
+                {
                     ViewBag.NegNumError = "Моля въведете позитивни стойности";
                 }
 
                 else
                 {
 
-                    double creditAmount = double.Parse(CreditAmount);
+                    // Създай CreditModel конструктор и добави всички полета като параметри, не ги създавайте тук.
                     int creditTermMonths = int.Parse(CreditTermMonths);
                     int interestRatePercent = int.Parse(InterestRatePercentage);
                     double promotionalPeriodMonths = double.Parse(PromotionalPeriodMonths);
@@ -72,7 +68,8 @@ namespace PartyInvites.Controllers
                         double initialTax = applicationFee + filingFee + otherFee;
 
                         /*Такса кандидатстване = Размера на кредита * Такса кандидатстване/100 (ако е в проценти)*/
-                        if (ApplicationFeeFlatOrPercentage == false) {
+                        if (ApplicationFeeFlatOrPercentage == false)
+                        {
                             applicationFee = creditAmount * applicationFee / 100;
                         }
                         /*Такса обработка = Размера на кредита * Такса обработка/100 (ако е в проценти)*/
@@ -114,7 +111,7 @@ namespace PartyInvites.Controllers
                         if (MonthlyAdminFeeFlatOrPercentage == false)
                         {
                             /*TODO creditAmount/creditTermMonths =SHOULD BE= VnosnaGlavnitsa/monthlyPayback*/
-                            monthlyAdminFee = (creditAmount/creditTermMonths) * monthlyAdminFee / 100;
+                            monthlyAdminFee = (creditAmount / creditTermMonths) * monthlyAdminFee / 100;
                         }
 
                         if (OtherMonthlyFeeFlatOrPercentage == false)
@@ -137,7 +134,7 @@ namespace PartyInvites.Controllers
                                 gratisPeriodMonths--;
                                 creditTermMonths--;
                             }
-                            
+
                             /*Ако все още планът е в промоционалния период, то:*/
                             if (promotionalPeriodMonths != 0)
                             {
@@ -184,7 +181,8 @@ namespace PartyInvites.Controllers
                     }
 
                     /*If Decreasing*/
-                    else if (AnualOrDecreasingInstallments == false) {
+                    else if (AnualOrDecreasingInstallments == false)
+                    {
 
                         interestRatePercent /= 100;
                         double remainingDueAmount = creditAmount;

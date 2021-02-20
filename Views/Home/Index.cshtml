@@ -17,7 +17,7 @@
 <body>
     <div class="navigation">
         <div class="main-logo">
-            <a href="home.html"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
+            <a href="http://localhost:5000"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
         </div>
     </div>
 
@@ -39,19 +39,19 @@
 
     <div class="slideshow-container">
 
-        <div class="slide fade">
+        <div class="slide slideFade">
             <a asp-controller="Credit" asp-action="CreditCalc">
                 <img src="/Content/Assets/credit.png">
             </a>
         </div>
 
-        <div class="slide fade">
+        <div class="slide slideFade">
             <a asp-action="RefinanceCalc">
                 <img src="/Content/Assets/refinancing.png">
             </a>
         </div>
 
-        <div class="slide fade">
+        <div class="slide slideFade">
             <a asp-controller="Leasing" asp-action="LeaseCalc">
                 <img src="/Content/Assets/leasing.png">
             </a>
@@ -68,9 +68,7 @@
         <span class="dot" onclick="currentSlide(3)"></span>
     </div>
 
-    <div>
-    <script>
-        var slideIndex = 1;
+    <script>var slideIndex = 1;
         showSlides(slideIndex);
 
         function plusSlides(n) {
@@ -111,34 +109,20 @@
 
         setTimeout(executeNextSlide, 5000);</script>
 
+    <div class="footer">
+
+        <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+            <img src="/Content/Assets/second-logo.png">
+            <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+        </div>
+
+        <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+            <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+        </div>
+
+        <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+            <p classs="main-text">© 2020 Нов Български Университет</p>
+        </div>
     </div>
 </body>
-
-<div class="footer">
-
-    <div class="footer-column" style="padding: 50px 0px 0px 0px;">
-        <img src="/Content/Assets/second-logo.png">
-        <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
-    </div>
-
-    <div class="footer-column" style="padding: 20px 0px 0px 0px;">
-        <img src="/Content/Assets/footer-illustration.png" class="footer-image">
-    </div>
-
-    <div class="footer-column" style="padding: 200px 0px 0px 0px;">
-        <p classs="main-text">© 2020 Нов Български Университет</p>
-    </div>
-</div>
-<!--
-<body>
-    <div class="text-center">
-        <h3> We're going to calculate stuff!</h3>
-        <h4>And we have three different calculators:</h4>
-        <a class="btn btn-primary" asp-action="RsvpForm">Credit Payments Calculator</a>
-        <a class="btn btn-primary" asp-action="RefinanceCalc">Refinancing Calculator</a>
-        <a class="btn btn-primary" asp-controller="Leasing" asp-action="Index">Leasing Calculator</a>
-    </div>
-</body>
-
--->
 </html>
