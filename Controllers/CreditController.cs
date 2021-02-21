@@ -47,7 +47,7 @@ namespace PartyInvites.Controllers
                         otherMonthlyFeeFlatOrPercentage: OtherMonthlyFeeFlatOrPercentage
                   );
 
-                // Проверката не е нужна, всички числа се валидират през HTML, при въвеждане на негативно ще бъде показан popup глася
+                // Проверката не е нужна, всички числа се валидират през HTML, при въвеждане на негативно ще бъде показан popup гласящ
                 // че това е невъзможно
 
                 /* verifies all inputs are positive */
