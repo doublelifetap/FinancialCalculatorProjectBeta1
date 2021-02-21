@@ -11,84 +11,80 @@ namespace PartyInvites.Models
         public double CreditAmount { get; set; }
         public double CreditTermMonths { get; set; }
         public double InterestRatePercentage { get; set; }
-        public bool? AnualOrDecreasingInstallments { get; set; }
+        public bool? AnualOrDecreasingInstallments { get; set; } 
 
         /* Promotional Period Values */
-        public double PromotionalPeriodMonths { get; set; }
-        public double PromotionalInterestPercentage { get; set; }
-        public double GratisPeriodMonths { get; set; }
-
-
-        /* Taxes Values */
+        public double? PromotionalPeriodMonths { get; set; }
+        public double? PromotionalInterestPercentage { get; set; }
+        public double? GratisPeriodMonths { get; set; }
         
+        /* Taxes Values */
+
         /* Initial Taxes Values */
-        public double ApplicationFee { get; set; }
+        public double? ApplicationFee { get; set; }
         public bool? ApplicationFeeFlatOrPercentage { get; set; }
-        public double FilingFee { get; set; }
+        public double? FilingFee { get; set; }
         public bool? FilingFeeFlatOrPercentage { get; set; }
-        public double OtherFee { get; set; }
+        public double? OtherFee { get; set; }
         public bool? OtherFeeFlatOrPercentage { get; set; }
         /* Initial Taxes Values End*/
-        
+
         /* Annual Taxes Values */
-        public double AnnualAdminFee { get; set; }
+        public double? AnnualAdminFee { get; set; }
         public bool? AnnualAdminFeeFlatOrPercentage { get; set; }
-        public double OtherAnnualFee { get; set; }
+        public double? OtherAnnualFee { get; set; }
         public bool? OtherAnnualFeeFlatOrPercentage { get; set; }
         /* Annual Taxes Values End*/
-        
-        /* Monthly Taxes Values */
-        public double MonthlyAdminFee { get; set; }
-        public bool? MonthlyAdminFeeFlatOrPercentage { get; set; }
-        public double OtherMonthlyFee { get; set; }
-        public bool? OtherMonthlyFeeFlatOrPercentage { get; set; }
 
-        // Добавете default стойности за всички (optional) полета,
-        // За да може да не са null и да не се влиза в exception при изчисления
+        /* Monthly Taxes Values */
+        public double? MonthlyAdminFee { get; set; }
+        public bool? MonthlyAdminFeeFlatOrPercentage { get; set; }
+        public double? OtherMonthlyFee { get; set; }
+        public bool? OtherMonthlyFeeFlatOrPercentage { get; set; }
 
         public CreditModel(double creditAmount,
                            double creditTermMonths,
                            double interestRatePercentage,
                            bool? anualOrDecreasingInstallments,
-                           double promotionalPeriodMonths,
-                           double promotionalInterestPercentage,
-                           double gratisPeriodMonths,
-                           double applicationFee,
+                           double? promotionalPeriodMonths,
+                           double? promotionalInterestPercentage,
+                           double? gratisPeriodMonths,
+                           double? applicationFee,
                            bool? applicationFeeFlatOrPercentage,
-                           double filingFee,
+                           double? filingFee,
                            bool? filingFeeFlatOrPercentage,
-                           double otherFee,
+                           double? otherFee,
                            bool? otherFeeFlatOrPercentage,
-                           double annualAdminFee,
+                           double? annualAdminFee,
                            bool? annualAdminFeeFlatOrPercentage,
-                           double otherAnnualFee,
+                           double? otherAnnualFee,
                            bool? otherAnnualFeeFlatOrPercentage,
-                           double monthlyAdminFee,
+                           double? monthlyAdminFee,
                            bool? monthlyAdminFeeFlatOrPercentage,
-                           double otherMonthlyFee,
+                           double? otherMonthlyFee,
                            bool? otherMonthlyFeeFlatOrPercentage)
         {
             CreditAmount = creditAmount;
             CreditTermMonths = creditTermMonths;
             InterestRatePercentage = interestRatePercentage;
-            AnualOrDecreasingInstallments = anualOrDecreasingInstallments;
-            PromotionalPeriodMonths = promotionalPeriodMonths;
-            PromotionalInterestPercentage = promotionalInterestPercentage;
-            GratisPeriodMonths = gratisPeriodMonths;
-            ApplicationFee = applicationFee;
-            ApplicationFeeFlatOrPercentage = applicationFeeFlatOrPercentage;
-            FilingFee = filingFee;
-            FilingFeeFlatOrPercentage = filingFeeFlatOrPercentage;
-            OtherFee = otherFee;
-            OtherFeeFlatOrPercentage = otherFeeFlatOrPercentage;
-            AnnualAdminFee = annualAdminFee;
-            AnnualAdminFeeFlatOrPercentage = annualAdminFeeFlatOrPercentage;
-            OtherAnnualFee = otherAnnualFee;
-            OtherAnnualFeeFlatOrPercentage = otherAnnualFeeFlatOrPercentage;
-            MonthlyAdminFee = monthlyAdminFee;
-            MonthlyAdminFeeFlatOrPercentage = monthlyAdminFeeFlatOrPercentage;
-            OtherMonthlyFee = otherMonthlyFee;
-            OtherMonthlyFeeFlatOrPercentage = otherMonthlyFeeFlatOrPercentage;
+            AnualOrDecreasingInstallments = anualOrDecreasingInstallments ?? true;
+            PromotionalPeriodMonths = promotionalPeriodMonths ?? 0.0;
+            PromotionalInterestPercentage = promotionalInterestPercentage ?? 0.0;
+            GratisPeriodMonths = gratisPeriodMonths ?? 0.0;
+            ApplicationFee = applicationFee ?? 0.0;
+            ApplicationFeeFlatOrPercentage = applicationFeeFlatOrPercentage ?? true;
+            FilingFee = filingFee ?? 0.0;
+            FilingFeeFlatOrPercentage = filingFeeFlatOrPercentage ?? true;
+            OtherFee = otherFee ?? 0.0;
+            OtherFeeFlatOrPercentage = otherFeeFlatOrPercentage ?? true;
+            AnnualAdminFee = annualAdminFee ?? 0.0;
+            AnnualAdminFeeFlatOrPercentage = annualAdminFeeFlatOrPercentage ?? true;
+            OtherAnnualFee = otherAnnualFee ?? 0.0;
+            OtherAnnualFeeFlatOrPercentage = otherAnnualFeeFlatOrPercentage ?? true;
+            MonthlyAdminFee = monthlyAdminFee ?? 0.0;
+            MonthlyAdminFeeFlatOrPercentage = monthlyAdminFeeFlatOrPercentage ?? true;
+            OtherMonthlyFee = otherMonthlyFee ?? 0.0;
+            OtherMonthlyFeeFlatOrPercentage = otherMonthlyFeeFlatOrPercentage ?? true;
         }
         /* Monthly Taxes Values End*/
 

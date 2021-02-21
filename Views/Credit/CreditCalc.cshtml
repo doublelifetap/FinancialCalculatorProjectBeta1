@@ -61,7 +61,7 @@
                 <div class="float-child-left">
                     <div class="input-wrapper">
                         <!--<label asp-for="InterestRatePercentage">Lease period:</label>-->
-                        <input type="number" asp-for="InterestRatePercentage" asp-controller="Credit" asp-action="CreditCalc" name="InterestRatePercentage" placeholder="Лихва (%)*" required id="size" min="0" /><!--<br>-->
+                        <input type="number" asp-for="InterestRatePercentage" asp-controller="Credit" asp-action="CreditCalc" name="InterestRatePercentage" placeholder="Лихва (%)*" required id="size" min="0.0" step="0.1"/><!--<br>-->
                         <!--<br>-->
                     </div>
                 </div>
@@ -235,10 +235,7 @@
             <script>
                 function myFunction() {
 
-                    console.log("pedal");
-
-                    var numberOfErrors = '@(ViewBag.NegNumError)';
-
+                    var numberOfErrors = '@(ViewBag.NegNumError)'
                     if (numberOfErrors != null) {
 
                         var tb = document.getElementById("result-table");
