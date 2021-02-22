@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using PartyInvites.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using PartyInvites.Models;
 
 namespace PartyInvites.Controllers
 {
@@ -19,71 +16,78 @@ namespace PartyInvites.Controllers
         [HttpPost]
         /*TODO: Set float point precision for outputs; Go over validation and required fields; Fix calc algorythm*/
         //public IActionResult Index(LeasingModel LeasingModel, string calculate)
-        public IActionResult CreditCalc(string CreditAmount, string CreditTermMonths, string InterestRatePercentage, bool AnualOrDecreasingInstallments, string PromotionalPeriodMonths, string PromotionalInterestPercentage,
-            string GratisPeriodMonths, string ApplicationFee, bool ApplicationFeeFlatOrPercentage, string FilingFee, bool FilingFeeFlatOrPercentage, string OtherFee,
-            bool OtherFeeFlatOrPercentage, string AnnualAdminFee, bool AnnualAdminFeeFlatOrPercentage, string OtherAnnualFee, bool OtherAnnualFeeFlatOrPercentage, string MonthlyAdminFee, string OtherMonthlyFee,
-            bool MonthlyAdminFeeFlatOrPercentage, bool OtherMonthlyFeeFlatOrPercentage, double monthlyInterest, double monthlyTax, double yearlyTax, double paidBackAlready, double montlyInterest)
+        public IActionResult CreditCalc(double CreditAmount, double CreditTermMonths, double InterestRatePercentage, bool? AnualOrDecreasingInstallments, double? PromotionalPeriodMonths, double? PromotionalInterestPercentage,
+            double? GratisPeriodMonths, double? ApplicationFee, bool? ApplicationFeeFlatOrPercentage, double? FilingFee, bool? FilingFeeFlatOrPercentage, double? OtherFee,
+            bool? OtherFeeFlatOrPercentage, double? AnnualAdminFee, bool? AnnualAdminFeeFlatOrPercentage, double? OtherAnnualFee, bool? OtherAnnualFeeFlatOrPercentage, double? MonthlyAdminFee, double? OtherMonthlyFee,
+            bool? MonthlyAdminFeeFlatOrPercentage, bool? OtherMonthlyFeeFlatOrPercentage, double monthlyInterest, double monthlyTax, double yearlyTax, double paidBackAlready, double montlyInterest)
         {
             try
             {
+                CreditModel cm = new CreditModel(
+                        creditAmount: CreditAmount,
+                        creditTermMonths: CreditTermMonths,
+                        interestRatePercentage: InterestRatePercentage,
+                        anualOrDecreasingInstallments: AnualOrDecreasingInstallments,
+                        promotionalPeriodMonths: PromotionalPeriodMonths,
+                        promotionalInterestPercentage: PromotionalInterestPercentage,
+                        gratisPeriodMonths: GratisPeriodMonths,
+                        applicationFee: ApplicationFee,
+                        applicationFeeFlatOrPercentage: ApplicationFeeFlatOrPercentage,
+                        filingFee: FilingFee,
+                        filingFeeFlatOrPercentage: FilingFeeFlatOrPercentage,
+                        otherFee: OtherFee,
+                        otherFeeFlatOrPercentage: OtherFeeFlatOrPercentage,
+                        annualAdminFee: AnnualAdminFee,
+                        annualAdminFeeFlatOrPercentage: AnnualAdminFeeFlatOrPercentage,
+                        otherAnnualFee: OtherAnnualFee,
+                        otherAnnualFeeFlatOrPercentage: OtherAnnualFeeFlatOrPercentage,
+                        monthlyAdminFee: MonthlyAdminFee,
+                        monthlyAdminFeeFlatOrPercentage: MonthlyAdminFeeFlatOrPercentage,
+                        otherMonthlyFee: OtherMonthlyFee,
+                        otherMonthlyFeeFlatOrPercentage: OtherMonthlyFeeFlatOrPercentage
+                  );
+
+                // Проверката не е нужна, всички числа се валидират през HTML, при въвеждане на негативно ще бъде показан popup гласящ
+                // че това е невъзможно
+
                 /* verifies all inputs are positive */
-                if (int.Parse(CreditAmount) < 0 || int.Parse(CreditTermMonths) < 0 || int.Parse(InterestRatePercentage) < 0 || int.Parse(PromotionalPeriodMonths) < 0 || int.Parse(PromotionalInterestPercentage) < 0
-                    || int.Parse(GratisPeriodMonths) < 0 || int.Parse(ApplicationFee) < 0 || int.Parse(FilingFee) < 0 || int.Parse(OtherFee) < 0 || int.Parse(AnnualAdminFee) < 0 || int.Parse(OtherAnnualFee) < 0
-                    || int.Parse(MonthlyAdminFee) < 0 || int.Parse(OtherMonthlyFee) < 0)
+                //if (cm.CreditAmount < 0 || int.Parse(CreditTermMonths) < 0 || int.Parse(InterestRatePercentage) < 0 || int.Parse(PromotionalPeriodMonths) < 0 || int.Parse(PromotionalInterestPercentage) < 0
+                //    || int.Parse(GratisPeriodMonths) < 0 || int.Parse(ApplicationFee) < 0 || int.Parse(FilingFee) < 0 || int.Parse(OtherFee) < 0 || int.Parse(AnnualAdminFee) < 0 || int.Parse(OtherAnnualFee) < 0
+                //    || int.Parse(MonthlyAdminFee) < 0 || int.Parse(OtherMonthlyFee) < 0)
+                //{
+                //    ViewBag.NegNumError = "Моля въведете позитивни стойности";
+                //}
 
-                { 
-                    ViewBag.NegNumError = "Моля въведете позитивни стойности";
-                }
-
-                else
-                {
-
-                    double creditAmount = double.Parse(CreditAmount);
-                    int creditTermMonths = int.Parse(CreditTermMonths);
-                    int interestRatePercent = int.Parse(InterestRatePercentage);
-                    double promotionalPeriodMonths = double.Parse(PromotionalPeriodMonths);
-                    int promotionalInterestPercentage = int.Parse(PromotionalInterestPercentage);
-
-                    double gratisPeriodMonths = double.Parse(GratisPeriodMonths);
-                    double applicationFee = double.Parse(ApplicationFee);
-                    double filingFee = double.Parse(FilingFee);
-                    double otherFee = double.Parse(OtherFee);
-
-                    double annualAdminFee = double.Parse(AnnualAdminFee);
-                    double otherAnnualFee = double.Parse(OtherAnnualFee);
-
-                    double monthlyAdminFee = double.Parse(MonthlyAdminFee);
-                    double otherMonthlyFee = double.Parse(OtherMonthlyFee);
-
-
+                    
                     /* calculates if InitialFee has been selected as a percentage */
 
                     /* If installments are Annual */
-                    if (AnualOrDecreasingInstallments == true)
+                    if (cm.AnualOrDecreasingInstallments == true)
                     {
-                        interestRatePercent /= 100;
-                        double remainingDueAmount = creditAmount;
-                        int promotionalInterestPercent = int.Parse(PromotionalInterestPercentage);
-                        promotionalInterestPercentage /= 100;
-                        /*int InterestRatePercent = int.Parse(InterestRatePercentage);*/
-                        /*double monthlyInterest;*/
+                        cm.InterestRatePercentage /= 100;
+                        double remainingDueAmount = cm.CreditAmount;
+                        cm.PromotionalInterestPercentage /= 100;
 
-                        /*Първоначални такси = Такса кандидатстване + Такса обработка + Други такси*/
-                        double initialTax = applicationFee + filingFee + otherFee;
+                    /*int InterestRatePercent = int.Parse(InterestRatePercentage);*/
+                    /*double monthlyInterest;*/
+
+                    /*Първоначални такси = Такса кандидатстване + Такса обработка + Други такси*/
+                    double initialTax = (double)(cm.ApplicationFee + cm.FilingFee + cm.OtherFee);
 
                         /*Такса кандидатстване = Размера на кредита * Такса кандидатстване/100 (ако е в проценти)*/
-                        if (ApplicationFeeFlatOrPercentage == false) {
-                            applicationFee = creditAmount * applicationFee / 100;
+                        if (cm.ApplicationFeeFlatOrPercentage == false)
+                        {
+                            cm.ApplicationFee = cm.CreditAmount * cm.ApplicationFee / 100;
                         }
                         /*Такса обработка = Размера на кредита * Такса обработка/100 (ако е в проценти)*/
                         if (FilingFeeFlatOrPercentage == false)
                         {
-                            filingFee = creditAmount * filingFee / 100;
+                            cm.FilingFee = cm.CreditAmount * cm.FilingFee / 100;
                         }
                         /*Други такси = Размера на кредита * Други такси/100 (ако е в проценти)*/
                         if (OtherFeeFlatOrPercentage == false)
                         {
-                            otherFee = creditAmount * otherFee / 100;
+                            cm.OtherFee = cm.CreditAmount * cm.OtherFee / 100;
                         }
 
                         /*========================================================================================================================*/
@@ -91,170 +95,171 @@ namespace PartyInvites.Controllers
                         /*========================================================================================================================*/
 
                         /*Годишни такси = Годишна такса управление + Други годишни такси (таксуват се при първа вносна главница от следващата година)*/
-                        double realAnnualTax = annualAdminFee + otherAnnualFee;
+                        double realAnnualTax = (double)(cm.AnnualAdminFee + cm.OtherAnnualFee);
 
                         /*Годишна такса управление = входа (ако е във валута)*/
                         /*Годишна такса управление = Първата вносна главница на следващата година * входа/100 (ако е в проценти)*/
                         if (AnnualAdminFeeFlatOrPercentage == false)
                         {
                             /*TODO ot sledvashta godina*/
-                            annualAdminFee = creditAmount * annualAdminFee / 100;
+                            cm.AnnualAdminFee = cm.CreditAmount * cm.AnnualAdminFee / 100;
                         }
 
                         /*Други годишни такси = Първата вносна главница на следващата година * входа/100 (ако е в проценти)*/
                         if (OtherAnnualFeeFlatOrPercentage == false)
                         {
                             /*TODO ot sledvashta godina*/
-                            otherAnnualFee = creditAmount * annualAdminFee / 100;
+                            cm.OtherAnnualFee = cm.CreditAmount * cm.AnnualAdminFee / 100;
                         }
 
                         /*Месечни такси = Месечна такса управление + Други месечни такси (таксуват се всеки месец)*/
-                        double realMonthlyTax = monthlyAdminFee + otherMonthlyFee;
+                        double realMonthlyTax = (double)(cm.MonthlyAdminFee + cm.OtherMonthlyFee);
 
                         if (MonthlyAdminFeeFlatOrPercentage == false)
                         {
                             /*TODO creditAmount/creditTermMonths =SHOULD BE= VnosnaGlavnitsa/monthlyPayback*/
-                            monthlyAdminFee = (creditAmount/creditTermMonths) * monthlyAdminFee / 100;
+                            cm.MonthlyAdminFee = (cm.CreditAmount / cm.CreditTermMonths) * cm.MonthlyAdminFee / 100;
                         }
 
                         if (OtherMonthlyFeeFlatOrPercentage == false)
                         {
                             /*TODO creditAmount/creditTermMonths == VnosnaGlavnitsa/monthlyPayback*/
-                            otherMonthlyFee = (creditAmount / creditTermMonths) * otherMonthlyFee / 100;
+                            cm.OtherMonthlyFee = (cm.CreditAmount / cm.CreditTermMonths) * cm.OtherMonthlyFee / 100;
                         }
 
                         /*========================================================================================================================*/
                         /*========================================================================================================================*/
                         /*========================================================================================================================*/
 
-                        while (creditTermMonths > 0)
+                        while (cm.CreditTermMonths > 0)
                         {
                             /*if still in Gratis Period*/
-                            while (gratisPeriodMonths > 0)
+                            while (cm.GratisPeriodMonths > 0)
                             {
                                 /*TODO check if gratis period does not surpass credit term as validation*/
 
-                                gratisPeriodMonths--;
-                                creditTermMonths--;
+                                cm.GratisPeriodMonths--;
+                                cm.CreditTermMonths--;
                             }
-                            
+
                             /*Ако все още планът е в промоционалния период, то:*/
-                            if (promotionalPeriodMonths != 0)
+                            if (cm.PromotionalPeriodMonths != 0)
                             {
                                 /*Месечната лихва = Остатъкът по главницата * Промоционалната лихва/12 */
-                                monthlyInterest = remainingDueAmount * promotionalInterestPercent / 12;
+                                monthlyInterest = (double)(remainingDueAmount * cm.PromotionalInterestPercentage / 12);
 
-                                promotionalPeriodMonths--;
+                                cm.PromotionalPeriodMonths--;
                             }
                             /*Ако планът вече не е в промоционален период, то:*/
                             else
                             {
                                 /* Месечната лихва = Остатъкът по главницата * Лихвата / 12*/
-                                montlyInterest = remainingDueAmount * interestRatePercent / 12;
+                                montlyInterest = remainingDueAmount * cm.InterestRatePercentage / 12;
                             }
 
 
                             /*Месечна вноска = Financial.Pmt(Промоционалната лихва / 12, Срокът месеци - текущия месец, -Остатъкът по главницата)(за анюитетни вноски)*/
-                            double monthlyPayTotal = Financial.Pmt(promotionalInterestPercent / 12, creditTermMonths, -remainingDueAmount);
+                            double monthlyPayTotal = Financial.Pmt((double)(cm.PromotionalInterestPercentage / 12), cm.CreditTermMonths, -remainingDueAmount);
                             /*Вноската по главницата = Месечната вноска - Месечната лихва (за анюитетни вноски)*/
                             double monthlyPayback = monthlyPayTotal - monthlyInterest;
                             /* Остатъкът по главницата = Остатъкът по главницата -Вноската по главницата*/
                             remainingDueAmount -= monthlyPayback;
 
                             /*Месечната такса = Месечните такси за управление + Други месечни такси (анюитетни)*/
-                            monthlyTax = monthlyAdminFee + otherMonthlyFee;
+                            monthlyTax = (double)(cm.MonthlyAdminFee + cm.OtherMonthlyFee);
 
                             /*Годишната такса = Годишните такси за управление + Други годишни такси (анюитетни)*/
-                            yearlyTax = annualAdminFee + otherAnnualFee;
+                            yearlyTax = (double)(cm.AnnualAdminFee + cm.OtherAnnualFee);
 
                             paidBackAlready = monthlyPayTotal + monthlyTax + yearlyTax;
 
-                            creditTermMonths--;
+                            cm.CreditTermMonths--;
                         }
 
-                        ViewBag.monthlyTax = 8000;
+                        ViewBag.monthlyTax = monthlyTax;
                         ViewBag.yearlyTax = yearlyTax;
 
-                        ViewBag.interestRate = interestRatePercent;
+                        ViewBag.interestRate = cm.InterestRatePercentage;
 
                         ViewBag.paidBack = paidBackAlready;
-                        ViewBag.MontlyInterest = montlyInterest;
+                        ViewBag.montlyInterest = montlyInterest;
 
                         return View();
                     }
 
                     /*If Decreasing*/
-                    else if (AnualOrDecreasingInstallments == false) {
+                    else if (AnualOrDecreasingInstallments == false)
+                    {
 
-                        interestRatePercent /= 100;
-                        double remainingDueAmount = creditAmount;
-                        int promotionalInterestPercent = int.Parse(PromotionalInterestPercentage);
-                        promotionalInterestPercentage /= 100;
+                        cm.InterestRatePercentage /= 100;
+                        double remainingDueAmount = cm.CreditAmount;
+                        //int promotionalInterestPercent = int.Parse(PromotionalInterestPercentage);
+                        cm.PromotionalInterestPercentage /= 100;
                         /*int InterestRatePercent = int.Parse(InterestRatePercentage);*/
                         /*double monthlyInterest;*/
 
                         /*Такса кандидатстване = Размера на кредита * Такса кандидатстване/100 (ако е в проценти)*/
                         if (ApplicationFeeFlatOrPercentage == false)
                         {
-                            applicationFee = creditAmount * applicationFee / 100;
+                            cm.ApplicationFee = cm.CreditAmount * cm.ApplicationFee / 100;
                         }
                         /*Такса обработка = Размера на кредита * Такса обработка/100 (ако е в проценти)*/
                         if (FilingFeeFlatOrPercentage == false)
                         {
-                            filingFee = creditAmount * filingFee / 100;
+                            cm.FilingFee = cm.CreditAmount * cm.FilingFee / 100;
                         }
                         /*Други такси = Размера на кредита * Други такси/100 (ако е в проценти)*/
                         if (OtherFeeFlatOrPercentage == false)
                         {
-                            otherFee = creditAmount * otherFee / 100;
+                            cm.OtherFee = cm.CreditAmount * cm.OtherFee / 100;
                         }
 
-                        while (creditTermMonths > 0)
+                        if (cm.CreditTermMonths > 0)
                         {
                             /*if still in Gratis Period*/
-                            while (gratisPeriodMonths > 0)
+                            if (cm.GratisPeriodMonths > 0)
                             {
                                 /*TODO check if gratis period does not surpass credit term as validation*/
 
-                                gratisPeriodMonths--;
-                                creditTermMonths--;
+                                cm.GratisPeriodMonths--;
+                                cm.CreditTermMonths--;
                             }
 
                             /* вноска по главницата за намаляващи вноски (гратисния период е приключил) - Вноската по главницата = Размера на кредита / (Срок месеци - Гратисен период) */
-                            double monthlyPayback = creditAmount / (creditTermMonths);
+                            double monthlyPayback = cm.CreditAmount / (cm.CreditTermMonths);
                             /* Остатъкът по главницата = Остатъкът по главницата -Вноската по главницата*/
                             remainingDueAmount -= monthlyPayback;
 
                             /*Ако все още планът е в промоционалния период, то:*/
-                            if (promotionalPeriodMonths != 0)
+                            if (cm.PromotionalPeriodMonths != 0)
                             {
                                 /*Месечната лихва = Остатъкът по главницата * Промоционалната лихва/12 */
-                                monthlyInterest = remainingDueAmount * promotionalInterestPercent / 12;
+                                monthlyInterest = (double)(remainingDueAmount * cm.PromotionalInterestPercentage / 12);
 
-                                promotionalPeriodMonths--;
+                                cm.PromotionalPeriodMonths--;
                             }
                             /*Ако планът вече не е в промоционален период, то:*/
                             else
                             {
                                 /*TEMP Fix, non 0 output*/
-                                promotionalInterestPercent = 1;
+                                cm.PromotionalInterestPercentage = 1;
                                 /* Месечната лихва = Остатъкът по главницата * Лихвата / 12*/
-                                montlyInterest = remainingDueAmount * interestRatePercent / 12;
+                                montlyInterest = remainingDueAmount * cm.InterestRatePercentage / 12;
                             }
 
                             /*Месечна вноска = Вноската по главницата + Месечната лихва (за намаляващи вноски)*/
                             double monthlyPayTotal = monthlyPayback + monthlyInterest;
 
                             /*Месечните такси*/
-                            monthlyTax = remainingDueAmount * monthlyAdminFee + remainingDueAmount * otherMonthlyFee;
+                            monthlyTax = (double)(remainingDueAmount * cm.MonthlyAdminFee + remainingDueAmount * cm.OtherMonthlyFee);
 
                             /*Годишните такси*/
                             /*!!!!! ЗАДАДЕНО КАТО - Годишната такса = Остатъкът по главницата * Месечните такси за управление + Остатъкът по главницата * Други месечни такси (намаляващи)*/
-                            yearlyTax = remainingDueAmount * annualAdminFee + remainingDueAmount * otherAnnualFee;
+                            yearlyTax = (double)(remainingDueAmount * cm.AnnualAdminFee + remainingDueAmount * cm.OtherAnnualFee);
 
                             paidBackAlready = monthlyPayTotal + monthlyTax + yearlyTax;
 
-                            creditTermMonths--;
+                            cm.CreditTermMonths--;
                         }
 
                         ViewBag.monthlyTax = monthlyTax;
@@ -265,8 +270,6 @@ namespace PartyInvites.Controllers
 
                         return View();
                     }
-                }
-
             }
 
             /* Not all fields are required?*/
