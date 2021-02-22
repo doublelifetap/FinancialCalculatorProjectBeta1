@@ -1,55 +1,198 @@
-﻿@model PartyInvites.Models.RefinanceModel
-@{ Layout = null; }
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+@model PartyInvites.Models.RefinanceModel
+<!--@{ Layout = null; }-->
+<!--TODO: InitialFilingFee flat or percent???; Outputs not done; HTML validation;-->
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>RsvpForm</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-</head>
-<body>
-    <center>
-        <div class="wrapper">
-            <h5 class="bg-primary text-white text-center m-2 p-2">Refinancing Calculator</h5>
-            <form asp-action="RefinanceCalc" method="post" class="m-2">
+    <meta charset="utf-8">
+    <title>Leasing Calculator</title>
 
-                <div class="form-group">
-                    <label asp-for="Value1">First Value:</label>
-                    <input asp-for="Value1" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Value2">Second Value:</label>
-                    <input asp-for="Value2" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Value3">Third Value:</label>
-                    <input asp-for="Value3" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="RefinanceResult">Refinance Result:</label>
-                    <output asp-for="RefinanceResult" class="form-control" id="RefinanceRefult">@ViewBag.RefinanceResultOne</output>
-                    <!--
-                    <input asp-for="RefinanceResult" class="form-control" id="RefinanceResult" value="RefinanceResultOne" /> -->
-                    <!-- <output asp-for="RefinanceResult" class="form-control" id="RefinanceResult" value="RefinanceResult" />
-                    <output asp-for="RefinanceResult" class="form-control"></output> -->
-                </div>
-                       <!-- <div class="form-group">
-                     <label>Addition or Substraction?</label>
-                     <select asp-for="AddOrSubstract" class="form-control">
-                        <option value="">Choose an option</option>
-                        <option value="true">Add all values</option>
-                        <option value="false">Substract from first value</option>
-                     </select>
-            </div> -->
-                <button type="submit" class="btn btn-primary" id="refinance" value="refinance" name="calculate">Calculate Refinancing</button>
-                <button type="submit" class="btn btn-primary" id="refinance" value="refinanceSub" name="calculate">Calculate Refinancing Substracted</button>
-                <output asp-for="RefinanceResult" class="form-control" id="RefinanceRefult">@ViewBag.RefinanceResultOne</output>
-                <h2>@ViewBag.RefinanceResultOne</h2>
-            </form>
+    <link rel="stylesheet" href="/css/creditcal.css"><!--leasingcal.css?-->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <!--<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" /> -->
+
+    <link rel="icon" href="/Content/Assets/head-logo.jpeg" type="image/png">
+</head>
+
+
+<body>
+
+    <div class="navigation">
+        <div class="main-logo">
+            <a href="http://localhost:5000"><img src="/Content/Assets/logo.png" class="main-logo-image"></a>
         </div>
-        </center>
+    </div>
+
+    </br>
+    </br>
+
+    <label for="section-title" class="section-title">Калкулатор за рефинансиране</label>
+    </br>
+    <label for="section-mini-title" class="section-mini-title">Пресметнете дали рефинансирането на задълженията Ви е изгодно</label>
+
+    </br>
+    </br>
+    <!--Refinancing Calculator Fields-->
+    <div class="main-container">
+        <label for="section-title" class="section-title">Настоящ кредит</label>
+        <!--below <form> only concernes View <-> Controller relationship-->
+        <form asp-controller="Refinancing" asp-action="RefinanceCalc" method="post" class="m-2">
+            <div class="float-container">
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="CreditAmount" asp-controller="Refinancing" asp-action="RefinanceCalc" name="CreditAmount" placeholder="Размер на кредита*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InterestRatePercentage" asp-controller="Refinancing" asp-action="RefinanceCalc" name="InterestRatePercent" placeholder="Лихва (%)*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="CreditTermMonths" asp-controller="Refinancing" asp-action="RefinanceCalc" name="CreditTermMonths" placeholder="Срок на кредита (месеци)*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="NumberOfPaymentsMade" asp-controller="Refinancing" asp-action="RefinanceCalc" name="NumberOfPaymentsMade" placeholder="Брой на направените вноски*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="dropdown-child">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="EarlyRepaymentTax" asp-controller="Refinancing" asp-action="RefinanceCalc" name="EarlyRepaymentTax" placeholder="Такса за предсрочно погасяване*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+            </div>
+
+            <label for="section-title" class="section-title">Нов кредит</label>
+
+            <div class="float-container">
+
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InitialTaxes" asp-controller="Refinancing" asp-action="RefinanceCalc" name="NewCreditInitialTaxesPecent" placeholder="Първоначални такси*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+
+                <div class="float-child-right">
+                    <select asp-for="InitialTaxesFlatOrPercentage" name="ApplicationFeeFlatOrPercentage" asp-controller="Refinancing" asp-action="RefinanceCalc" class="selector">
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-child">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InterestRate" asp-controller="Refinancing" asp-action="RefinanceCalc" name="NewCreditInterest" placeholder="Лихва*" required id="size" min="100" max="100000000"><br>
+                    </div>
+                </div>
+            </div>
+
+            <!--onclick="myFunction()"-->
+            <div class="button-container" formmethod="post" type="submit" id="lease" value="lease" name="calculate">
+                <button asp-controller="Refinancing" asp-action="RefinanceCalc" formmethod="post" type="submit" class="calculate-button" id="Refinancing" value="Refinancing" name="Refinancing">Изчисли</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!--style="display: none-->
+    <div id="result-table" class="result-table">
+
+        <label for="section-mini-title" class="section-mini-title">Сумарни разходи</label>
+        </br>
+
+        <table>
+            <tr>
+                <td>Резултат</td>
+                <td>Текущ кредит</td>
+                <td>Нов кредит</td>
+                <td>+/- Спестявания</td>
+            </tr>
+            <tr>
+                <td>Лихва</td>
+                <td>@ViewBag.interestRate</td>
+                <td>@ViewBag.interestRateNew</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Срокове на кредитите</td>
+                <td>@ViewBag.creditTermOld</td>
+                <td>@ViewBag.creditTermNew</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Такса за предсрочно погасяване</td>
+                <td>@ViewBag.earlyRepaymentTax</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Месечна вноска</td>
+                <td>@ViewBag.monthlyPaymentOld</td>
+                <td>@ViewBag.monthlyPaymentNew</td>
+                <td>@ViewBag.savingsOnMonthly</td>
+            </tr>
+            <tr>
+                <td>Общо изплатени</td>
+                <td>@ViewBag.totalPaidOld</td>
+                <td>@ViewBag.totalPaidNew</td>
+                <td>@ViewBag.savingsOnTotal</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <br>
+
+    <!--Margin to be removed-->
+    <div class="section-footer-description" style="margin-top: 150px;">
+        <label>
+            * Задължителни полетa </br> </br>
+            C пoмoщтa нa ĸaлĸyлaтopa зa peфинaнcиpaнe нa ĸpeдити мoжeтe дa изчиcлитe ĸoлĸo биxтe cпecтили/изгyбили, aĸo peшитe дa peфинaнcиpaтe, т.e. дa изтeглитe нoв ĸpeдит, зa дa пoгacитe cтapo ĸpeдитнo зaдължeниe.
+            Зa цeлтa тpябвa дa въвeдeтe cлeднитe дaнни зa нacтoящия Bи ĸpeдит – paзмep, гoдишeн лиxвeн пpoцeнт, cpoĸ нa ĸpeдитa, бpoй нa нaпpaвeнитe внocĸи пo нeгo дo мoмeнтa, ĸaĸтo и paзмepa нa нaĸaзaтeлнaтa лиxвa зa пpeдcpoчнo пoгacявaнe.</br></br> Heoбxoдимитe дaнни зa нoвият ĸpeдит ca лиxвeн пpoцeнт и дължими тaĸcи и ĸoмиcиoнни нa бaнĸaтa пo oтпycĸaнeтo нa ĸpeдитa.
+            Kaлĸyлaтopът изчиcлявa двe cтoйнocти, пo ĸoитo мoжeтe дa ce opиeнтиpaтe дaли peфинaнcиpaнeтo e изгoднo зa Bac – paзлиĸa мeждy мeceчнитe внocĸи пo двaтa ĸpeдитa и мeждy oбщo изплaтeнитe cyми.
+        </label>
+    </div>
+
+    <div class="footer">
+
+        <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+            <img src="/Content/Assets/second-logo.png">
+            <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+        </div>
+
+        <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+            <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+        </div>
+
+        <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+            <p classs="main-text">© 2020 Нов Български Университет</p>
+        </div>
+    </div>
+
+    <!--
+    <script>
+
+        function myFunction() {
+
+            console.log("Lead me to the BE , calculate result & come back.")
+
+            var tb = document.getElementById("result-table");
+
+            if (tb.style.display == "none") {
+                tb.style.display = "grid";
+            }
+        }
+
+    </script>
+        -->
 </body>
-    </html>
+
+</html>

@@ -23,15 +23,16 @@
         </div>
     </div>
 
-    <!--<br>-->
-    <!--<br>-->
+    </br>
+    </br>
 
     <label for="section-title" class="section-title">Лизингов калкулатор</label>
     <!--<br>-->
     <label for="section-mini-title" class="section-mini-title">Пресметнете месечни вноски и ГПР (годишен процент на разходите) по лизинг/автокредит</label>
 
-    <!--<br>-->
-    <!--<br>-->
+    </br>
+    </br>
+
     <!--Leasing Calculator Fields-->
     <div class="main-container">
         <!--below <form> only concernes View <-> Controller relationship-->
@@ -62,24 +63,18 @@
                 </div>
 
                 <!--???<div class="dropdown-child">
-                <div class="input-wrapper">
-                    <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
-                </div>
-                </div>-->
+        <div class="input-wrapper">
+            <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
+        </div>
+        </div>-->
             </div>
             <!--Leasing Calculator Fields End-->
-
-            <button asp-controller="Leasing" formmethod="post" type="submit" class="btn btn-primary" id="lease" value="lease" name="lease">Calculate Lease</button>
             <!--redundant-->
-            <div onclick="myFunction()" class="button-container" formmethod="post" type="submit" id="lease" value="lease" name="calculate">
-                <button class="calculate-button">Изчисли</button>
+            <div onclick="myFunction()" class="button-container">
+                <button class="calculate-button" formmethod="post" type="submit" id="lease" value="lease" name="calculate">Изчисли</button>
             </div>
 
         </form>
-    </div>
-
-    <div onclick="myFunction()" class="button-container">
-        <button class="calculate-button">Изчисли</button>
     </div>
 
     <!--temp. redundant
