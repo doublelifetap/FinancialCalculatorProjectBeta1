@@ -6,21 +6,37 @@ namespace PartyInvites.Models
     public class RefinanceModel
     {
 
-        [Required(ErrorMessage = "Please enter first value")]
-        public int Value1 { get; set; }
-        [Required(ErrorMessage = "Please enter second value")]
-        public int Value2 { get; set; }
-        [Required(ErrorMessage = "Please enter third value")]
-        public int Value3 { get; set; }
-        public int RefinanceResult { get; set; }
-        public bool? AddOrSubstract { get; set; }
+        /* Credit Calculator Values */
+        public double CreditAmount { get; set; }
+        public double CreditTermMonths { get; set; }
+        public double InterestRatePercentage { get; set; }
+        public int NumberOfPaymentsMade { get; set; }
 
-        /*public void CalculateResult(){
-            RefinanceResult = Value1 + Value2 + Value3;
-        }*/
+        /* Credit Calculator Values */
+        public double EarlyRepaymentTax { get; set; }
 
+        /* New Credit Values */
+        public double InterestRate { get; set; }
+        public double InitialTaxes { get; set; }
+        public bool? InitialTaxesFlatOrPercentage { get; set; }
 
-
+        public RefinanceModel(double creditAmount,
+                              double creditTermMonths,
+                              double interestRatePercentage,
+                              int numberOfPaymentsMade,
+                              double earlyRepaymentTax,
+                              double interestRate,
+                              double initialTaxes,
+                              bool? initialTaxesFlatOrPercentage)
+        {
+            CreditAmount = creditAmount;
+            CreditTermMonths = creditTermMonths;
+            InterestRatePercentage = interestRatePercentage;
+            NumberOfPaymentsMade = numberOfPaymentsMade;
+            EarlyRepaymentTax = earlyRepaymentTax;
+            InterestRate = interestRate;
+            InitialTaxes = initialTaxes;
+            InitialTaxesFlatOrPercentage = initialTaxesFlatOrPercentage ?? true;
+        }
     }
 }
-//<div asp-validation-summary="All"></div> to Ref Calc Top Body

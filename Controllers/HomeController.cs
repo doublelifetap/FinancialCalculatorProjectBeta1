@@ -18,18 +18,18 @@ namespace PartyInvites.Controllers {
         [HttpPost]
         public ActionResult RefinanceCalc(RefinanceModel RefinancingModel, string calculate)
         {
-            if (calculate == "refinance")
-            {
-                RefinancingModel.RefinanceResult = RefinancingModel.Value1 + RefinancingModel.Value2 + RefinancingModel.Value3;
-            }
-            else
-            {
-                RefinancingModel.RefinanceResult = RefinancingModel.Value1 + RefinancingModel.Value2 - RefinancingModel.Value3;
-            }
+            //if (calculate == "refinance")
+            //{
+            //    RefinancingModel.RefinanceResult = RefinancingModel.Value1 + RefinancingModel.Value2 + RefinancingModel.Value3;
+            //}
+            //else
+            //{
+            //    RefinancingModel.RefinanceResult = RefinancingModel.Value1 + RefinancingModel.Value2 - RefinancingModel.Value3;
+            //}
 
-            ViewBag.RefinanceResultOne = RefinancingModel.RefinanceResult;
+            //ViewBag.RefinanceResultOne = RefinancingModel.RefinanceResult;
 
-            return View(RefinancingModel);
+            //return View(RefinancingModel);
 
             /* if (calculate == "refinance")
             {
@@ -46,6 +46,8 @@ namespace PartyInvites.Controllers {
             /*FOR VIEW: @{ if (@Model.RefinanceResult != null)
                         {
             @Model.RefinanceResult.ToString() } }*/
+
+            return RefinanceCalc();
         }
          
         [HttpGet]
