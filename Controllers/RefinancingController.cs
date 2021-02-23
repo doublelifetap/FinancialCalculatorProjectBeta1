@@ -19,13 +19,13 @@ namespace PartyInvites.Controllers
         //public IActionResult Index(LeasingModel LeasingModel, string calculate)
         [HttpPost]
 
-        public IActionResult RefinanceCalc(string CreditAmount, string InterestRatePercent, string CreditTermMonths, string NumberOfPaymentsMade, string EarlyRepaymentTax, string NewCreditInterest, string NewCreditInitialTaxesPecent, string NewCreditInitialTaxesFlat)
+        public IActionResult RefinanceCalc(string CreditAmount, string InterestRatePercent, string CreditTermMonths, string NumberOfPaymentsMade, string EarlyRepaymentTax, string NewCreditInterest, string NewCreditInitialTaxesPecent)
         {
             try
             {
                 /* verifies all inputs are positive */
                 if (int.Parse(CreditAmount) < 0 || int.Parse(InterestRatePercent) < 0 || int.Parse(CreditTermMonths) < 0 || int.Parse(NumberOfPaymentsMade) < 0 || int.Parse(EarlyRepaymentTax) < 0 ||
-                    int.Parse(NewCreditInterest) < 0 || int.Parse(NewCreditInitialTaxesPecent) < 0 || int.Parse(NewCreditInitialTaxesFlat) < 0)
+                    int.Parse(NewCreditInterest) < 0 || int.Parse(NewCreditInitialTaxesPecent) < 0)
                 {
                     ViewBag.NegNumError = "Please input positive numbers";
                 }
@@ -45,7 +45,6 @@ namespace PartyInvites.Controllers
 
                     double newCreditInterestDouble = double.Parse(NewCreditInterest);
                     double newCreditInitialTaxesPecentDouble = double.Parse(NewCreditInitialTaxesPecent);
-                    double newCreditInitialTaxesFlatDouble = double.Parse(NewCreditInitialTaxesFlat);
                     double newCreditPayment = 0;
 
                     double monthlyPayment = 0;
@@ -83,7 +82,7 @@ namespace PartyInvites.Controllers
                     newCreditPayment = Microsoft.VisualBasic.Financial.Pmt(newCreditInterestDouble / 12, newTerm, -remainingDueAmount);
 
                     /*Общо изплатени за нов кредит*/
-                    double newTotalPaymentsMade = (newCreditPayment * newTerm) + earlyRepaymentTaxDouble + (creditAmountDouble * (newCreditInitialTaxesPecentDouble / 100) + newCreditInitialTaxesFlatDouble);
+                    double newTotalPaymentsMade = (newCreditPayment * newTerm) + earlyRepaymentTaxDouble + (creditAmountDouble * (newCreditInitialTaxesPecentDouble / 100) + double.Parse(NewCreditInitialTaxesPecent));
 
                     /*Спестявания от вноски*/
                     double savingsPayments = monthlyPaymentCurrentCredit - newCreditPayment;
@@ -92,26 +91,29 @@ namespace PartyInvites.Controllers
                     double savingsTotal = totalPaymentsMade - newTotalPaymentsMade;
 
                     /*изходни*/
-                    ViewBag.interestRate = interestRateDouble;
-                    ViewBag.interestRateNew = newCreditInterestDouble;
+                    ViewBag.interestRate = Math.Round(interestRateDouble, 2, MidpointRounding.AwayFromZero);
 
-                    ViewBag.creditTermOld = creditTermMonthsDouble;
-                    ViewBag.creditTermNew = newTerm;
+                    //Math.Round(newTotalPaymentsMade, 2, MidpointRounding.AwayFromZero);
 
-                    ViewBag.earlyRepaymentTax = earlyRepaymentTaxDouble;
+                    ViewBag.interestRateNew = Math.Round(newCreditInterestDouble, 2, MidpointRounding.AwayFromZero);
 
-                    ViewBag.monthlyPaymentOld = monthlyPaymentCurrentCredit;
-                    ViewBag.monthlyPaymentNew = newCreditPayment;
+                    ViewBag.creditTermOld = Math.Round(creditTermMonthsDouble, 2, MidpointRounding.AwayFromZero);
+                    ViewBag.creditTermNew = Math.Round(newTerm, 2, MidpointRounding.AwayFromZero);
 
-                    ViewBag.monthlySavingsTotal = ViewBag.monthlyPaymentOld - ViewBag.monthlyPaymentNew;
+                    ViewBag.earlyRepaymentTax = Math.Round(earlyRepaymentTaxDouble, 2, MidpointRounding.AwayFromZero);
 
-                    ViewBag.totalPaidOld = totalPaymentsMade;
-                    ViewBag.totalPaidNew = newTotalPaymentsMade;
+                    ViewBag.monthlyPaymentOld = Math.Round(monthlyPaymentCurrentCredit, 2, MidpointRounding.AwayFromZero);
+                    ViewBag.monthlyPaymentNew = Math.Round(newCreditPayment, 2, MidpointRounding.AwayFromZero);
+
+                    ViewBag.monthlySavingsTotal = Math.Round((totalPaymentsMade - newTotalPaymentsMade), 2, MidpointRounding.AwayFromZero);
+
+                    ViewBag.totalPaidOld = Math.Round(totalPaymentsMade, 2, MidpointRounding.AwayFromZero);
+                    ViewBag.totalPaidNew = Math.Round(newTotalPaymentsMade, 2, MidpointRounding.AwayFromZero);
 
                     /* TODO: Спесявания - трета колона - да изчислява разликите между нов и стар за всяка стойност*/
                     ViewBag.savingsOnMonthly = monthlyPaymentCurrentCredit - newCreditPayment;
 
-                    ViewBag.savingsOnTotal = totalPaymentsMade - newTotalPaymentsMade;
+                    ViewBag.savingsOnTotal = Math.Round(totalPaymentsMade - newTotalPaymentsMade, 2, MidpointRounding.AwayFromZero); 
 
 
                     /*return View();*/
