@@ -41,21 +41,25 @@ namespace PartyInvites.Controllers
 
                         double Tax = initialFilingFeeDouble;
 
+                        decimal GPR;
+
                         /*Taxes calc %:*/
-                        double totalTaxes = leaseAmountDouble * (initialFilingFeeDouble / 100);
+                        //double totalTaxes = leaseAmountDouble * (initialFilingFeeDouble / 100);
 
-                        /*Taxes calc FLAT: 
-                         double totalTaxes = initialFilingFeeDouble;
-                        */
 
-                        double totalPaid = Tax + initialPaymentDouble + monthlyPaymentsDouble * leasePeriodMonthsDouble;
+                        double totalTaxes = initialFilingFeeDouble;
 
-                        ViewBag.totalPaidWithTaxes = totalPaid + totalTaxes;
+
+                        double totalPaid = totalTaxes + initialPaymentDouble + (monthlyPaymentsDouble * leasePeriodMonthsDouble);
+
+                        double interestGPR = Microsoft.VisualBasic.Financial.Rate(leasePeriodMonthsDouble, -monthlyPaymentsDouble, (double)(leaseAmountDouble - initialPaymentDouble - totalTaxes)) * 12;
+                        GPR = (decimal)Math.Pow((interestGPR / 12) + 1.0, 12) - 1;
+
+                        ViewBag.GPR = String.Format("{0:0.00}", GPR * 100);
+                        ViewBag.totalPaidWithTaxes = totalPaid;
                         ViewBag.totalTaxes = totalTaxes;
 
-                        double oneTooMany = ViewBag.totalPaidWithTaxes - leaseAmountDouble;
                         /*Изчислявам го като процен оскъпяване спрямо цената на стоката*/
-                        ViewBag.totalYearlySpendingPercent = (oneTooMany / totalPaid) * 100;
 
 
                         return View();

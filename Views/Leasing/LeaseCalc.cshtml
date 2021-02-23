@@ -52,7 +52,7 @@
 
                 <div class="float-child-left">
                     <div class="input-wrapper">
-                        <input type="number" asp-for="LeasePeriodMonths" asp-controller="Leasing" asp-action="LeaseCalc" name="LeasePeriodMonths" placeholder="Период на лизинга (месеци)*" required id="size" min="100" max="100000000"><br>
+                        <input type="number" asp-for="LeasePeriodMonths" asp-controller="Leasing" asp-action="LeaseCalc" name="LeasePeriodMonths" placeholder="Период на лизинга (месеци)*" required id="size" min="12" max="100000000"><br>
                     </div>
                 </div>
 
@@ -62,11 +62,18 @@
                     </div>
                 </div>
 
+                <div class="float-child-left">
+                    <div class="input-wrapper">
+                        <input type="number" asp-for="InitialFilingFee" asp-controller="Leasing" asp-action="LeaseCalc" name="InitialFilingfee" placeholder="Първоначална вноска за обработка*" required id="size" min="1" max="100000000"><br>
+                    </div>
+                </div>
+
+
                 <!--???<div class="dropdown-child">
-        <div class="input-wrapper">
-            <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
-        </div>
-        </div>-->
+    <div class="input-wrapper">
+        <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
+    </div>
+    </div>-->
             </div>
             <!--Leasing Calculator Fields End-->
             <!--redundant-->
@@ -104,7 +111,7 @@
     <table>
         <tr>
             <td>ГОДИШЕН ПРОЦЕНТЕН РАЗХОД:</td>
-            <td>@ViewBag.totalYearlySpendingPercent BGN</td>
+            <td>@ViewBag.GPR %</td>
         </tr>
         <tr>
             <td>ОБЩО ИЗПЛАТЕНО С ТАКСИ:</td>
