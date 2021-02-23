@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <title>Leasing Calculator</title>
 
-    <link rel="stylesheet" href="/css/creditcal.css"><!--leasingcal.css?-->
+    <link rel="stylesheet" href="/css/leasingcal.css"><!--leasingcal.css?-->
     <link rel="stylesheet" href="/css/styles.css" />
     <!--<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" /> -->
 
@@ -28,7 +28,7 @@
 
     <label for="section-title" class="section-title">Лизингов калкулатор</label>
     <!--<br>-->
-    <label for="section-mini-title" class="section-mini-title">Пресметнете месечни вноски и ГПР (годишен процент на разходите) по лизинг/автокредит</label>
+    <label for="section-mini-title" class="section-mini-title">Пресметнете оскъпяването на стоката, закупена чрез лизинг</label>
 
     </br>
     </br>
@@ -70,10 +70,10 @@
 
 
                 <!--???<div class="dropdown-child">
-    <div class="input-wrapper">
-        <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
-    </div>
-    </div>-->
+                <div class="input-wrapper">
+                    <input type="number" name="size" id="size" min="100" max="100000000" placeholder="Първоначална вноска за обработка*"><br>
+                </div>
+                </div>-->
             </div>
             <!--Leasing Calculator Fields End-->
             <!--redundant-->
@@ -108,6 +108,7 @@
     </div>
     -->
 
+<div class="result-table">
     <table>
         <tr>
             <td>ГОДИШЕН ПРОЦЕНТЕН РАЗХОД:</td>
@@ -122,6 +123,8 @@
             <td>@ViewBag.totalTaxes BGN</td>
         </tr>
     </table>
+</div>
+    
 
     <div class="section-footer-description">
         <label>
@@ -138,7 +141,7 @@
         }</script>
 
 
-    <div class="footer">
+    @*<div class="footer">
 
         <div class="footer-column" style="padding: 50px 0px 0px 0px;">
             <img src="/Content/Assets/second-logo.png">
@@ -150,6 +153,22 @@
         </div>
 
         <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+            <p classs="main-text">© 2020 Нов Български Университет</p>
+        </div>
+    </div>*@
+
+    <div class="footer">
+
+        <div class="footer-column footer-logo">
+            <img src="/Content/Assets/second-logo.png">
+            <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
+        </div>
+
+        <div class="footer-column footer-pig">
+            <img src="/Content/Assets/footer-illustration.png" class="footer-image">
+        </div>
+
+        <div class="footer-column footer-text">
             <p classs="main-text">© 2020 Нов Български Университет</p>
         </div>
     </div>
