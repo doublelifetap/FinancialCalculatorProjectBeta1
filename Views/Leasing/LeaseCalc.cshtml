@@ -68,6 +68,12 @@
                     </div>
                 </div>
 
+                <div class="float-child-right">
+                    <select asp-for="FlatOrPercent" name="FlatOrPercent" asp-controller="Leasing" asp-action="LeaseCalc" class="selector">
+                        <option value="true">валута</option>
+                        <option value="false">%</option>
+                    </select>
+                </div>
 
                 <!--???<div class="dropdown-child">
     <div class="input-wrapper">

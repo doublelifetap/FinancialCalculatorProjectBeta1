@@ -29,33 +29,32 @@ namespace PartyInvites.Controllers
                 }
 
                 else {
-                    /* calculates if InitialFee has been selected as a percentage */
-                    /* TEMP; Should be if (FlatOrPercent == true) */
-                    if (true == true)
-                    {
+                    
                         double leaseAmountDouble = double.Parse(LeaseAmount);
                         double initialPaymentDouble = double.Parse(InitialPayment);
                         double leasePeriodMonthsDouble = double.Parse(LeasePeriodMonths);
                         double monthlyPaymentsDouble = double.Parse(MonthlyPayments);
                         double initialFilingFeeDouble = double.Parse(InitialFilingFee);
-
+                        
                         double Tax = initialFilingFeeDouble;
+                        double totalTaxes = initialFilingFeeDouble;
 
                         decimal GPR;
 
-                        /*Taxes calc %:*/
-                        //double totalTaxes = leaseAmountDouble * (initialFilingFeeDouble / 100);
+                    /*Taxes calc %:*/
+                    //double totalTaxes = leaseAmountDouble * (initialFilingFeeDouble / 100);
 
+                    if (!FlatOrPercent)
+                    {
+                        totalTaxes = leaseAmountDouble * (initialFilingFeeDouble / 100);
+                    }
 
-                        double totalTaxes = initialFilingFeeDouble;
-
-
-                        double totalPaid = totalTaxes + initialPaymentDouble + (monthlyPaymentsDouble * leasePeriodMonthsDouble);
+                    double totalPaid = totalTaxes + initialPaymentDouble + (monthlyPaymentsDouble * leasePeriodMonthsDouble);
 
                         double interestGPR = Microsoft.VisualBasic.Financial.Rate(leasePeriodMonthsDouble, -monthlyPaymentsDouble, (double)(leaseAmountDouble - initialPaymentDouble - totalTaxes)) * 12;
                         GPR = (decimal)Math.Pow((interestGPR / 12) + 1.0, 12) - 1;
 
-                        ViewBag.GPR = String.Format("{0:0.00}", GPR * 100);
+                        ViewBag.GPR = Math.Round(GPR * 100, 2, MidpointRounding.AwayFromZero);
                         ViewBag.totalPaidWithTaxes = totalPaid;
                         ViewBag.totalTaxes = totalTaxes;
 
@@ -63,22 +62,6 @@ namespace PartyInvites.Controllers
 
 
                         return View();
-                    }
-
-                /* calculates if InitialFee has been selected as a flat value */
-                    else
-                    {
-                        double leaseAmountDouble = double.Parse(LeaseAmount);
-                        double initialPaymentDouble = double.Parse(InitialPayment);
-                        double leasePeriodMonthsDouble = double.Parse(LeasePeriodMonths);
-                        double monthlyPaymentsDouble = double.Parse(MonthlyPayments);
-                        double initialFilingFeeDouble = double.Parse(InitialFilingFee);
-
-                        double Tax = leaseAmountDouble * (initialFilingFeeDouble / 100);
-                        double totalPaid = Tax + initialPaymentDouble + monthlyPaymentsDouble * leasePeriodMonthsDouble;
-
-                            return View();
-                    }
                 }
 
 
