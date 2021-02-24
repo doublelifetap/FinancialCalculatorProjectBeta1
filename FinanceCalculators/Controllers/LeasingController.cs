@@ -79,17 +79,6 @@ namespace PartyInvites.Controllers
 
 
             return View();
-            /* if (lease == "calculate")
-            {
-                //LeasingModel.LeasingTotalResult = LeasingModel.LeasingValue1 + LeasingModel.LeasingValue2 + LeasingModel.LeasingValue3;
-            }
-            else
-            {
-               // LeasingModel.LeasingTotalResult = LeasingModel.LeasingValue1 + LeasingModel.LeasingValue2 - LeasingModel.LeasingValue3;
-            }
-
-            return View(LeasingModel);*/
-
         }
 
     }
