@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'PartyInvites' " />
   <ItemGroup>
     <None Include="wwwroot\Content\Assets\credit.png" />
     <None Include="wwwroot\Content\Assets\footer-illustration.png" />
