@@ -18,7 +18,6 @@
     <None Include="wwwroot\Content\Images\head-logo.jpeg" />
     <None Include="wwwroot\Content\Images\leasing.png" />
     <None Include="wwwroot\Content\Images\logo.png" />
-    <None Include="wwwroot\Content\Images\main-image.png" />
     <None Include="wwwroot\Content\Images\refinancing.png" />
     <None Include="wwwroot\Content\Images\second-logo.png" />
   </ItemGroup>
