@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinancialCalculatorProjectBeta1\PartyInvites.csproj" />
+    <ProjectReference Include="..\PartyInvites\PartyInvites.csproj" />
   </ItemGroup>
 
 </Project>
