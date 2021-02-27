@@ -110,7 +110,7 @@
   font-family: LucidaGrande;
   display: flow-root;
   color: var(--secondaryText);
-
+  padding: 20px;
 }
 
 .button-container {
@@ -142,11 +142,7 @@
 }
 
 .result-table {
-
-  margin: 20px 20px 20px 20px;
-  border: solid 2px #00378e;
-  border-radius: 25px;
-  padding: 20px 20px 20px 20px;
+    padding: 10px 10px 10px 10px;
 }
 
 table {
@@ -237,4 +233,89 @@ body {
 
   width: 350px;
   height: 250px;
+}
+
+.footer-logo {
+    padding: 50px 0px 0px 0px;
+}
+
+.footer-pig {
+    padding: 20px 0px 0px 0px;
+}
+
+.footer-text {
+    padding: 200px 0px 0px 0px;
+}
+
+@media only screen and (max-width: 812px) {
+
+    #otherAnnualFee {
+        margin-bottom: 0px;
+    }
+
+    #promotionalInterest {
+        margin-bottom: 40px;
+    }
+
+    .main-logo {
+        padding: unset;
+    }
+
+    .section-mini-title {
+        padding: 20px;
+    }
+
+    .float-container {
+        display: grid;
+        grid-template-columns: none;
+    }
+
+    .float-child-left {
+        width: 90%;
+    }
+
+    .float-child-right {
+        width: 90%;
+    }
+
+    .dropdown-child {
+
+        width: 90%;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        margin-top: 75px;
+        display: grid;
+        height: auto;
+    }
+
+        .footer .footer-logo {
+            padding: 50px 0px 0px 0px;
+            height: 25px;
+        }
+
+            .footer .footer-logo img {
+                height: 100px;
+            }
+
+            .footer .footer-logo p {
+                padding-top: 10px;
+            }
+
+        .footer .footer-pig {
+            padding: 150px 0px 0px 0px;
+            height: 50px;
+        }
+
+            .footer .footer-pig img {
+                height: 100px;
+                width: 150px;
+            }
+
+        .footer .footer-text {
+            padding: 70px 0px 0px 0px;
+            height: 50px;
+        }
 }

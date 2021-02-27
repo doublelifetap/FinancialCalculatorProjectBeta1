@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="float-child-right">
+                <div id="promotionalInterest" class="float-child-right">
                     <div class="input-wrapper">
                         <!--<label asp-for="PromotionalInterestPercentage">Promotional Interest %</label>-->
                         <input type="number" asp-for="PromotionalInterestPercentage" asp-controller="Credit" asp-action="CreditCalc" name="PromotionalInterestPercentage" id="size" min="0" max="100" placeholder="Промоционална Лихва(%)" /><!--<br>-->
@@ -184,7 +184,7 @@
                     </div>
                 </div>
 
-                <div class="float-child-right">
+                <div id="otherAnnualFee" class="float-child-right">
                     <select class="selector" asp-for="OtherAnnualFeeFlatOrPercentage" name="OtherAnnualFeeFlatOrPercentage" asp-controller="Credit" asp-action="CreditCalc">
                         <option value="true">валута</option>
                         <option value="false">%</option>
@@ -320,16 +320,16 @@
 
     <div class="footer">
 
-        <div class="footer-column" style="padding: 50px 0px 0px 0px;">
+        <div class="footer-column footer-logo">
             <img src="/Content/Assets/second-logo.png">
             <p classs="main-text"> ул. “Монтевидео” 21, 1618 <br> ж.к. Овча Купел 2, Sofia</p>
         </div>
 
-        <div class="footer-column" style="padding: 20px 0px 0px 0px;">
+        <div class="footer-column footer-pig">
             <img src="/Content/Assets/footer-illustration.png" class="footer-image">
         </div>
 
-        <div class="footer-column" style="padding: 200px 0px 0px 0px;">
+        <div class="footer-column footer-text">
             <p classs="main-text">© 2020 Нов Български Университет</p>
         </div>
     </div>
